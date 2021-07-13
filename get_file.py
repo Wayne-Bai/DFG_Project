@@ -72,12 +72,12 @@ def get_conStatement_code(dir):
             for line in lines:
                 line_list = line.split()
                 if smb == 0:
-                    if 'if' in line_list:
+                    if 'if' in line_list and '*/' not in line_list:
                         smb = 1
                         line_space1 = line.split('if')
                         space.append(line_space1[0])
                         w.write(line)
-                    elif 'switch' in line_list:
+                    elif 'switch' in line_list and '*/' not in line_list:
                         smb = 1
                         line_space1 = line.split('switch')
                         space.append(line_space1[0])

@@ -1,6 +1,6 @@
 import os
 
-image_path = 'jasper-2.0.14'
+image_path = 'jasper-2.0.10'
 
 def get_filelist(dir, Filelist):
     newDir = dir
@@ -109,5 +109,5 @@ if __name__ == '__main__':
     # for e in c_list:
     #     print(e)
 
-    # get_conStatement_point(c_list)
+    get_conStatement_point(c_list)
     get_conStatement_code(c_list)

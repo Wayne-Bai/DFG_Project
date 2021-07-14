@@ -3203,11 +3203,6 @@
 	}
 
 ----------------------------------------------------------------------------------
-	if (!(box = jp2_box_create0())) {
-		return 0;
-	}
-
-----------------------------------------------------------------------------------
 	if (!(boxinfo = jp2_boxinfolookup(type))) {
 		return 0;
 	}
@@ -3230,7 +3225,7 @@
 	}
 
 ----------------------------------------------------------------------------------
-	if (!(box = jp2_box_create0())) {
+	if (!(box = jas_malloc(sizeof(jp2_box_t)))) {
 		goto error;
 	}
 
@@ -3241,7 +3236,6 @@
 
 ----------------------------------------------------------------------------------
 	if (box->len == 1) {
-		JAS_DBGLOG(10, ("big length\n"));
 		if (jp2_getuint64(in, &extlen)) {
 			goto error;
 		}
@@ -3430,9 +3424,7 @@
 
 ----------------------------------------------------------------------------------
 	if (dataflag) {
-		if (jas_stream_copy(out, tmpstream, box->len -
-		  JP2_BOX_HDRLEN(false))) {
-			jas_eprintf("cannot copy box data\n");
+		if (jas_stream_copy(out, tmpstream, box->len - JP2_BOX_HDRLEN(false))) {
 			goto error;
 		}
 		jas_stream_close(tmpstream);
@@ -3624,7 +3616,6 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 	int_fast32_t x;
 
 	pclr->lutdata = 0;
-	pclr->bpc = 0;
 
 	if (jp2_getuint16(in, &pclr->numlutents) ||
 	  jp2_getuint8(in, &pclr->numchans)) {
@@ -3675,12 +3666,6 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 		}
 
 ----------------------------------------------------------------------------------
-	if (jas_image_numcmpts(image) < 1) {
-		jas_eprintf("image must have at least one component\n");
-		goto error;
-	}
-
-----------------------------------------------------------------------------------
 		if (jas_image_cmptsgnd(image, i) != sgnd ||
 		  jas_image_cmptprec(image, i) != prec) {
 			allcmptssame = 0;
@@ -3689,57 +3674,48 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 
 ----------------------------------------------------------------------------------
 	if (!(box = jp2_box_create(JP2_BOX_JP))) {
-		jas_eprintf("cannot create JP box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jp2_box_put(box, out)) {
-		jas_eprintf("cannot write JP box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (!(box = jp2_box_create(JP2_BOX_FTYP))) {
-		jas_eprintf("cannot create FTYP box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jp2_box_put(box, out)) {
-		jas_eprintf("cannot write FTYP box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (!(tmpstream = jas_stream_memopen(0, 0))) {
-		jas_eprintf("cannot create temporary stream\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (!(box = jp2_box_create(JP2_BOX_IHDR))) {
-		jas_eprintf("cannot create IHDR box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jp2_box_put(box, tmpstream)) {
-		jas_eprintf("cannot write IHDR box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (!allcmptssame) {
 		if (!(box = jp2_box_create(JP2_BOX_BPCC))) {
-			jas_eprintf("cannot create BPCC box\n");
 			goto error;
 		}
 		bpcc = &box->data.bpcc;
 		bpcc->numcmpts = jas_image_numcmpts(image);
 		if (!(bpcc->bpcs = jas_alloc2(bpcc->numcmpts,
 		  sizeof(uint_fast8_t)))) {
-			jas_eprintf("memory allocation failed\n");
 			goto error;
 		}
 		for (cmptno = 0; cmptno < bpcc->numcmpts; ++cmptno) {
@@ -3747,7 +3723,6 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 			  cmptno), jas_image_cmptprec(image, cmptno));
 		}
 		if (jp2_box_put(box, tmpstream)) {
-			jas_eprintf("cannot write BPCC box\n");
 			goto error;
 		}
 		jp2_box_destroy(box);
@@ -3756,7 +3731,6 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 
 ----------------------------------------------------------------------------------
 	if (!(box = jp2_box_create(JP2_BOX_COLR))) {
-		jas_eprintf("cannot create COLR box\n");
 		goto error;
 	}
 
@@ -3776,35 +3750,28 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 		colr->approx = 0;
 		/* Ensure that cmprof_ is not null. */
 		if (!jas_image_cmprof(image)) {
-			jas_eprintf("CM profile is null\n");
 			goto error;
 		}
 		if (!(iccprof = jas_iccprof_createfromcmprof(
 		  jas_image_cmprof(image)))) {
-			jas_eprintf("cannot create ICC profile\n");
 			goto error;
 		}
 		if (!(iccstream = jas_stream_memopen(0, 0))) {
-			jas_eprintf("cannot create temporary stream\n");
 			goto error;
 		}
 		if (jas_iccprof_save(iccprof, iccstream)) {
-			jas_eprintf("cannot write ICC profile\n");
 			goto error;
 		}
 		if ((pos = jas_stream_tell(iccstream)) < 0) {
-			jas_eprintf("cannot get stream position\n");
 			goto error;
 		}
 		colr->iccplen = pos;
 		if (!(colr->iccp = jas_malloc(pos))) {
-			jas_eprintf("memory allocation failed\n");
 			goto error;
 		}
 		jas_stream_rewind(iccstream);
 		if (jas_stream_read(iccstream, colr->iccp, colr->iccplen) !=
 		  colr->iccplen) {
-			jas_eprintf("cannot read temporary stream\n");
 			goto error;
 		}
 		jas_stream_close(iccstream);
@@ -3816,7 +3783,6 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 
 ----------------------------------------------------------------------------------
 	if (jp2_box_put(box, tmpstream)) {
-		jas_eprintf("cannot write box\n");
 		goto error;
 	}
 
@@ -3853,7 +3819,6 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 ----------------------------------------------------------------------------------
 	if (needcdef) {
 		if (!(box = jp2_box_create(JP2_BOX_CDEF))) {
-			jas_eprintf("cannot create CDEF box\n");
 			goto error;
 		}
 		cdef = &box->data.cdef;
@@ -3867,7 +3832,6 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 			cdefchanent->assoc = typeasoc & 0x7fff;
 		}
 		if (jp2_box_put(box, tmpstream)) {
-			jas_eprintf("cannot write CDEF box\n");
 			goto error;
 		}
 		jp2_box_destroy(box);
@@ -3876,37 +3840,31 @@ static int jp2_pclr_getdata(jp2_box_t *box, jas_stream_t *in)
 
 ----------------------------------------------------------------------------------
 	if (!(box = jp2_box_create(JP2_BOX_JP2H))) {
-		jas_eprintf("cannot create JP2H box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jp2_box_put(box, out)) {
-		jas_eprintf("cannot write JP2H box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jas_stream_copy(out, tmpstream, len)) {
-		jas_eprintf("cannot copy stream\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (!(box = jp2_box_create(JP2_BOX_JP2C))) {
-		jas_eprintf("cannot create JP2C box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jp2_box_put(box, out)) {
-		jas_eprintf("cannot write JP2C box\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jpc_encode(image, out, buf)) {
-		jas_eprintf("jpc_encode failed\n");
 		goto error;
 	}
 
@@ -4403,7 +4361,6 @@ int jas_stream_ungetc(jas_stream_t *stream, int c)
 	return 0;
 }
 
-/* FIXME integral type */
 int jas_stream_read(jas_stream_t *stream, void *buf, int cnt)
 {
 	int n;
@@ -4430,7 +4387,6 @@ int jas_stream_read(jas_stream_t *stream, void *buf, int cnt)
 	return n;
 }
 
-/* FIXME integral type */
 int jas_stream_write(jas_stream_t *stream, const void *buf, int cnt)
 {
 	int n;
@@ -4483,7 +4439,6 @@ int jas_stream_puts(jas_stream_t *stream, const char *s)
 	return 0;
 }
 
-/* FIXME integral type */
 char *jas_stream_gets(jas_stream_t *stream, char *buf, int bufsize)
 {
 	int c;
@@ -4507,7 +4462,6 @@ char *jas_stream_gets(jas_stream_t *stream, char *buf, int bufsize)
 	return buf;
 }
 
-/* FIXME integral type */
 int jas_stream_gobble(jas_stream_t *stream, int n)
 {
 	int m;
@@ -4526,7 +4480,6 @@ int jas_stream_gobble(jas_stream_t *stream, int n)
 	return n;
 }
 
-/* FIXME integral type */
 int jas_stream_pad(jas_stream_t *stream, int n, int c)
 {
 	int m;
@@ -4629,7 +4582,6 @@ long jas_stream_tell(jas_stream_t *stream)
 * Buffer initialization code.
 \******************************************************************************/
 
-/* FIXME integral type */
 static void jas_stream_initbuf(jas_stream_t *stream, int bufmode, char *buf,
   int bufsize)
 {
@@ -4805,7 +4757,6 @@ static int jas_strtoopenmode(const char *s)
 	return openmode;
 }
 
-/* FIXME integral type */
 int jas_stream_copy(jas_stream_t *out, jas_stream_t *in, int n)
 {
 	int all;
@@ -4831,7 +4782,6 @@ int jas_stream_copy(jas_stream_t *out, jas_stream_t *in, int n)
 	return 0;
 }
 
-/* FIXME integral type */
 long jas_stream_setrwcount(jas_stream_t *stream, long rwcnt)
 {
 	int old;
@@ -4841,7 +4791,6 @@ long jas_stream_setrwcount(jas_stream_t *stream, long rwcnt)
 	return old;
 }
 
-/* FIXME integral type */
 int jas_stream_display(jas_stream_t *stream, FILE *fp, int n)
 {
 	unsigned char buf[16];
@@ -4916,16 +4865,14 @@ long jas_stream_length(jas_stream_t *stream)
 * Memory stream object.
 \******************************************************************************/
 
-/* FIXME integral type */
 static int mem_read(jas_stream_obj_t *obj, char *buf, int cnt)
 {
 	ssize_t n;
-	jas_stream_memobj_t *m;
 	assert(cnt >= 0);
 	assert(buf);
 
 	JAS_DBGLOG(100, ("mem_read(%p, %p, %d)\n", obj, buf, cnt));
-	m = (jas_stream_memobj_t *)obj;
+	jas_stream_memobj_t *m = (jas_stream_memobj_t *)obj;
 	n = m->len_ - m->pos_;
 	cnt = JAS_MIN(n, cnt);
 	memcpy(buf, &m->buf_[m->pos_], cnt);
@@ -4959,7 +4906,6 @@ static int mem_resize(jas_stream_memobj_t *m, size_t bufsize)
 	return 0;
 }
 
-/* FIXME integral type */
 static int mem_write(jas_stream_obj_t *obj, char *buf, int cnt)
 {
 	size_t n;
@@ -5015,7 +4961,6 @@ static int mem_write(jas_stream_obj_t *obj, char *buf, int cnt)
 	return ret;
 }
 
-/* FIXME integral type */
 static long mem_seek(jas_stream_obj_t *obj, long offset, int origin)
 {
 	jas_stream_memobj_t *m = (jas_stream_memobj_t *)obj;
@@ -5046,10 +4991,8 @@ static long mem_seek(jas_stream_obj_t *obj, long offset, int origin)
 
 static int mem_close(jas_stream_obj_t *obj)
 {
-	jas_stream_memobj_t *m;
-
 	JAS_DBGLOG(100, ("mem_close(%p)\n", obj));
-	m = (jas_stream_memobj_t *)obj;
+	jas_stream_memobj_t *m = (jas_stream_memobj_t *)obj;
 	JAS_DBGLOG(100, ("mem_close myalloc=%d\n", m->myalloc_));
 	if (m->myalloc_ && m->buf_) {
 		JAS_DBGLOG(100, ("mem_close freeing buffer %p\n", m->buf_));
@@ -5064,7 +5007,6 @@ static int mem_close(jas_stream_obj_t *obj)
 * File stream object.
 \******************************************************************************/
 
-/* FIXME integral type */
 static int file_read(jas_stream_obj_t *obj, char *buf, int cnt)
 {
 	jas_stream_fileobj_t *fileobj;
@@ -5073,7 +5015,6 @@ static int file_read(jas_stream_obj_t *obj, char *buf, int cnt)
 	return read(fileobj->fd, buf, cnt);
 }
 
-/* FIXME integral type */
 static int file_write(jas_stream_obj_t *obj, char *buf, int cnt)
 {
 	jas_stream_fileobj_t *fileobj;
@@ -5082,7 +5023,6 @@ static int file_write(jas_stream_obj_t *obj, char *buf, int cnt)
 	return write(fileobj->fd, buf, cnt);
 }
 
-/* FIXME integral type */
 static long file_seek(jas_stream_obj_t *obj, long offset, int origin)
 {
 	jas_stream_fileobj_t *fileobj;
@@ -5093,10 +5033,10 @@ static long file_seek(jas_stream_obj_t *obj, long offset, int origin)
 
 static int file_close(jas_stream_obj_t *obj)
 {
-	int ret;
 	jas_stream_fileobj_t *fileobj;
 	JAS_DBGLOG(100, ("file_close(%p)\n", obj));
 	fileobj = JAS_CAST(jas_stream_fileobj_t *, obj);
+	int ret;
 	ret = close(fileobj->fd);
 	if (fileobj->flags & JAS_STREAM_FILEOBJ_DELONCLOSE) {
 		unlink(fileobj->pathname);
@@ -5109,7 +5049,6 @@ static int file_close(jas_stream_obj_t *obj)
 * Stdio file stream object.
 \******************************************************************************/
 
-/* FIXME integral type */
 static int sfile_read(jas_stream_obj_t *obj, char *buf, int cnt)
 {
 	FILE *fp;
@@ -5125,7 +5064,6 @@ static int sfile_read(jas_stream_obj_t *obj, char *buf, int cnt)
 	return result;
 }
 
-/* FIXME integral type */
 static int sfile_write(jas_stream_obj_t *obj, char *buf, int cnt)
 {
 	FILE *fp;
@@ -5136,7 +5074,6 @@ static int sfile_write(jas_stream_obj_t *obj, char *buf, int cnt)
 	return (n != JAS_CAST(size_t, cnt)) ? (-1) : cnt;
 }
 
-/* FIXME integral type */
 static long sfile_seek(jas_stream_obj_t *obj, long offset, int origin)
 {
 	FILE *fp;
@@ -5623,7 +5560,6 @@ int jas_image_encode(jas_image_t *image, jas_stream_t *out, int fmt,
 {
 	jas_image_fmtinfo_t *fmtinfo;
 	if (!(fmtinfo = jas_image_lookupfmtbyid(fmt))) {
-		jas_eprintf("format lookup failed\n");
 		return -1;
 	}
 
@@ -9611,7 +9547,7 @@ static int icctoclrspc(int iccclrspc, int refflag)
 
 ----------------------------------------------------------------------------------
 	if (sot->tileno > 65534 || sot->len < 12 || sot->partno > 254 ||
-	  sot->numparts > 255) {
+	  sot->numparts < 1 || sot->numparts > 255) {
 		return -1;
 	}
 
@@ -11901,37 +11837,32 @@ jas_eprintf("lyrno=%02d, compno=%02d, lvlno=%02d, prcno=%02d, bandno=%02d, cblkn
 
 ----------------------------------------------------------------------------------
 	if (!(enc = jpc_enc_create(cp, out, image))) {
-		jas_eprintf("jpc_enc_create failed\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jpc_enc_encodemainhdr(enc)) {
-		jas_eprintf("cannot encode main header\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jpc_enc_encodemainbody(enc)) {
-		jas_eprintf("cannot encode main body\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (!(enc->mrk = jpc_ms_create(JPC_MS_EOC))) {
-		jas_eprintf("cannot create EOC marker\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jpc_putms(enc->out, enc->cstate, enc->mrk)) {
-		jas_eprintf("cannot write EOC marker\n");
+		jas_eprintf("cannot write EOI marker\n");
 		goto error;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jas_stream_flush(enc->out)) {
-		jas_eprintf("stream flush failed\n");
 		goto error;
 	}
 
@@ -12364,7 +12295,6 @@ jas_eprintf("lyrno=%02d, compno=%02d, lvlno=%02d, prcno=%02d, bandno=%02d, cblkn
 
 ----------------------------------------------------------------------------------
 	if (!(enc->mrk = jpc_ms_create(JPC_MS_SOC))) {
-		jas_eprintf("cannot create SOC marker\n");
 		return -1;
 	}
 
@@ -12376,7 +12306,6 @@ jas_eprintf("lyrno=%02d, compno=%02d, lvlno=%02d, prcno=%02d, bandno=%02d, cblkn
 
 ----------------------------------------------------------------------------------
 	if (!(enc->mrk = jpc_ms_create(JPC_MS_SIZ))) {
-		jas_eprintf("cannot create SIZ marker\n");
 		return -1;
 	}
 
@@ -12388,7 +12317,6 @@ jas_eprintf("lyrno=%02d, compno=%02d, lvlno=%02d, prcno=%02d, bandno=%02d, cblkn
 
 ----------------------------------------------------------------------------------
 	if (!(enc->mrk = jpc_ms_create(JPC_MS_COM))) {
-		jas_eprintf("cannot create COM marker\n");
 		return -1;
 	}
 
@@ -12424,7 +12352,6 @@ jas_eprintf("lyrno=%02d, compno=%02d, lvlno=%02d, prcno=%02d, bandno=%02d, cblkn
 
 ----------------------------------------------------------------------------------
 	if (!(enc->mrk = jpc_ms_create(JPC_MS_COD))) {
-		jas_eprintf("cannot create COD marker\n");
 		return -1;
 	}
 
@@ -12444,25 +12371,21 @@ jas_eprintf("lyrno=%02d, compno=%02d, lvlno=%02d, prcno=%02d, bandno=%02d, cblkn
 
 ----------------------------------------------------------------------------------
 	if (!(enc->mrk = jpc_ms_create(JPC_MS_QCD))) {
-		jas_eprintf("cannot create QCD marker\n");
 		return -1;
 	}
 
 ----------------------------------------------------------------------------------
 	if (jpc_putms(enc->out, enc->cstate, enc->mrk)) {
-		jas_eprintf("cannot write marker\n");
 		return -1;
 	}
 
 ----------------------------------------------------------------------------------
 		if (!(enc->mrk = jpc_ms_create(JPC_MS_QCC))) {
-			jas_eprintf("cannot create QCC marker\n");
 			return -1;
 		}
 
 ----------------------------------------------------------------------------------
 		if (jpc_putms(enc->out, enc->cstate, enc->mrk)) {
-			jas_eprintf("cannot write marker\n");
 			return -1;
 		}
 
@@ -12477,10 +12400,8 @@ jas_eprintf("lyrno=%02d, compno=%02d, lvlno=%02d, prcno=%02d, bandno=%02d, cblkn
 	}
 
 ----------------------------------------------------------------------------------
-		if (!(enc->curtile = jpc_enc_tile_create(enc->cp, enc->image,
-		  tileno))) {
-			jas_eprintf("cannot create tile\n");
-			return -1;
+		if (!(enc->curtile = jpc_enc_tile_create(enc->cp, enc->image, tileno))) {
+			abort();
 		}
 
 ----------------------------------------------------------------------------------
@@ -13018,19 +12939,16 @@ if (pass0->rdslope > 0.0) {
 			tcmpt_destroy(tcmpt);
 		}
 		jas_free(tile->tcmpts);
-		/* tile->tcmpts = NULL; */
 	}
 
 ----------------------------------------------------------------------------------
 	if (tile->lyrsizes) {
 		jas_free(tile->lyrsizes);
-		/* tile->lyrsizes = NULL; */
 	}
 
 ----------------------------------------------------------------------------------
 	if (tile->pi) {
 		jpc_pi_destroy(tile->pi);
-		/* tile->pi = NULL; */
 	}
 
 ----------------------------------------------------------------------------------
@@ -13066,19 +12984,16 @@ if (pass0->rdslope > 0.0) {
 			rlvl_destroy(rlvl);
 		}
 		jas_free(tcmpt->rlvls);
-		tcmpt->rlvls = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (tcmpt->data) {
 		jas_seq2d_destroy(tcmpt->data);
-		tcmpt->data = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (tcmpt->tsfb) {
 		jpc_tsfb_destroy(tcmpt->tsfb);
-		tcmpt->tsfb = NULL;
 	}
 
 ----------------------------------------------------------------------------------
@@ -13115,7 +13030,6 @@ if (pass0->rdslope > 0.0) {
 			band_destroy(band);
 		}
 		jas_free(rlvl->bands);
-		rlvl->bands = NULL;
 	}
 
 ----------------------------------------------------------------------------------
@@ -13158,23 +13072,21 @@ if (band->data) {
 			prc_destroy(prc);
 		}
 		jas_free(band->prcs);
-		band->prcs = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (band->data) {
 		jas_seq2d_destroy(band->data);
-		band->data = NULL;
 	}
 
 ----------------------------------------------------------------------------------
-	if (!rlvlno) {
-		tlcbgtlx = tlprctlx;
-		tlcbgtly = tlprctly;
-	} else {
-		tlcbgtlx = JPC_CEILDIVPOW2(tlprctlx, 1);
-		tlcbgtly = JPC_CEILDIVPOW2(tlprctly, 1);
-	}
+if (!rlvlno) {
+	tlcbgtlx = tlprctlx;
+	tlcbgtly = tlprctly;
+} else {
+	tlcbgtlx = JPC_CEILDIVPOW2(tlprctlx, 1);
+	tlcbgtly = JPC_CEILDIVPOW2(tlprctly, 1);
+}
 
 ----------------------------------------------------------------------------------
 	if (prc->tlx < prc->brx && prc->tly < prc->bry) {
@@ -13246,31 +13158,26 @@ if (band->data) {
 			cblk_destroy(cblk);
 		}
 		jas_free(prc->cblks);
-		prc->cblks = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (prc->incltree) {
 		jpc_tagtree_destroy(prc->incltree);
-		prc->incltree = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (prc->nlibtree) {
 		jpc_tagtree_destroy(prc->nlibtree);
-		prc->nlibtree = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (prc->savincltree) {
 		jpc_tagtree_destroy(prc->savincltree);
-		prc->savincltree = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (prc->savnlibtree) {
 		jpc_tagtree_destroy(prc->savnlibtree);
-		prc->savnlibtree = NULL;
 	}
 
 ----------------------------------------------------------------------------------
@@ -13285,31 +13192,26 @@ if (band->data) {
 			pass_destroy(pass);
 		}
 		jas_free(cblk->passes);
-		cblk->passes = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (cblk->stream) {
 		jas_stream_close(cblk->stream);
-		cblk->stream = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (cblk->mqenc) {
 		jpc_mqenc_destroy(cblk->mqenc);
-		cblk->mqenc = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (cblk->data) {
 		jas_seq2d_destroy(cblk->data);
-		cblk->data = NULL;
 	}
 
 ----------------------------------------------------------------------------------
 	if (cblk->flags) {
 		jas_seq2d_destroy(cblk->flags);
-		cblk->flags = NULL;
 	}
 
 ----------------------------------------------------------------------------------
@@ -18314,10 +18216,7 @@ static int jpc_dec_process_siz(jpc_dec_t *dec, jpc_ms_t *ms)
 
 	dec->numhtiles = JPC_CEILDIV(dec->xend - dec->tilexoff, dec->tilewidth);
 	dec->numvtiles = JPC_CEILDIV(dec->yend - dec->tileyoff, dec->tileheight);
-	assert(dec->numhtiles >= 0);
-	assert(dec->numvtiles >= 0);
-	if (!jas_safe_size_mul(dec->numhtiles, dec->numvtiles, &size) ||
-	  size > INT_MAX) {
+	if (!jas_safe_size_mul(dec->numhtiles, dec->numvtiles, &size)) {
 		return -1;
 	}
 	dec->numtiles = size;

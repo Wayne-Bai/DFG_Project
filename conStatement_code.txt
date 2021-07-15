@@ -1069,11 +1069,7 @@
 	if (jas_cmxform_apply(xform, &inpixmap, &outpixmap))
 		abort();
 
-	jas_xform_destroy(xform);
-	jas_cmprof_destroy(outprof);
-	return 0;
-}
-#endif
+----------------------------------------------------------------------------------
 	if (jas_init()) {
 		abort();
 	}

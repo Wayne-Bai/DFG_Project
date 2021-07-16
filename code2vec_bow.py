@@ -3,7 +3,7 @@ import re
 
 def code2str(line,flag):
     code_list = []
-    smb_list = ['{','}',':',';',',']
+    smb_list = ['{','}',';',',']
     error_list = ['exit', 'abort', 'cleanupandexit']
     value_list = ['=','+=','-=','/=','%=','<<=','>>=','&=','^=','/=']
 
@@ -30,8 +30,13 @@ def code2str(line,flag):
         line_list = line.split('(', 1)
         line_list[0] = line_list[0].strip('\t').strip('\n')
         line_list[1] = 'message'
-    else:
-        line_list = ['message']
+    elif 'printf' not in line and flag !=0:
+        for i in line:
+            if i == '(':
+                flag += 1
+            elif i == ')':
+                flag -= 1
+        line_list = []
 
     # assign value
     sign = []
@@ -43,45 +48,132 @@ def code2str(line,flag):
     if idx != [] and idx[0] == 1:
         line_list3 = line.split(sign[0],1)
         code_list.append(sign[0])
-        for slice2 in line_list3:
+
+        # handle polynomial
+        line_list3_cp = line_list3.copy()
+        for sl in line_list3:
+            if '/' in sl:
+                code_list.append('/')
+                for i in sl.split('/'):
+                    if '+' in i:
+                        code_list.append('+')
+                        for j in i.split('+'):
+                            line_list3_cp.append(j.strip('\t\n; ()'))
+                    elif '-' in i:
+                        code_list.append('-')
+                        for j in i.split('-'):
+                            line_list3_cp.append(j.strip('\t\n; ()'))
+                    else:
+                        line_list3_cp.append(i.strip('\t\n; '))
+
+            elif '*' in sl:
+                code_list.append('*')
+                for i in sl.split('*'):
+                    line_list3_cp.append(i.strip('\t\n; '))
+
+            elif '+' in sl:
+                code_list.append('+')
+                for i in sl.split('+'):
+                    line_list3_cp.append(i.strip('\t\n; '))
+            elif '-' in sl:
+                code_list.append('-')
+                for i in sl.split('-'):
+                    line_list3_cp.append(i.strip('\t\n; '))
+
+            elif '&' in sl:
+                code_list.append('&')
+                for i in sl.split('&'):
+                    line_list3_cp.append(i.strip('\t\n; '))
+
+        for slice2 in line_list3_cp:
             if '(' not in slice2:
-                code_list.append(slice2.strip('\t').strip('\n').strip(';'))
-            else:
-                code_piece = slice2.split('(')
-                code_list.append(code_piece[0].strip('\t').strip('\n').strip(';'))
+                if '?' in slice2:
+                    code_list.append('?')
+                code_list.append(slice2.strip('\t\n; ()?'))
+
+            elif '(' in slice2 and '+' not in slice2 and '-' not in slice2 and '*' not in slice2 and '&' not in slice2:
+                left = 0
+                right = 0
+                for i in slice2:
+                    if i == '(':
+                        left += 1
+                    elif i == ')':
+                        right += 1
+                if left == right:
+                    code_list.append(slice2.strip('\t\n; ()'))
+                if slice2[0] != '(':
+                    code_piece = slice2.split('(')
+                    if '?' in code_piece[0]:
+                        code_list.append('?')
+                    code_list.append(code_piece[0].strip('\t\n; ()?'))
+                else:
+                    code_list.append(slice2.strip('\t\n; ()?'))
+
+
+        code_list = handle_special(code_list)
+
         return code_list,flag
+
+    # operate value
+    if '++' in line:
+        code_list.append('++')
+        code_list.append(line.strip('\t').strip('\n').strip('++').strip(';'))
+    elif '--' in line:
+        code_list.append('--')
+        code_list.append(line.strip('\t').strip('\n').strip('--').strip(';'))
 
     # get the element based on some rules
     for slice1 in line_list:
         if '(' not in slice1 and slice1 not in smb_list and ')' not in slice1:
-            code_list.append(slice1.strip(':').strip(';'))
+            if slice1 != ':':
+                code_list.append(slice1.strip(':').strip(';').strip(','))
+            else:
+                code_list.append(':')
         elif '(' in slice1:
             line_list2 = slice1.split('(')
 
             # get special exit code
             if line_list2[0] in error_list:
-                code_list.append(slice1.strip(';').strip('}'))
+                code_list.append(slice1.strip(';').strip('}').strip(','))
             else:
                 for i in line_list2:
                     if '!' in i:
                         code_list.append('!')
-                        code_list.append(i.strip(')').strip('!'))
+                        code_list.append(i.strip(')').strip('!').strip(','))
                     elif i != '' and '!' not in i:
-                        code_list.append(i.strip(')'))
+                        code_list.append(i.strip(')').strip(','))
         elif ')' in slice1:
             if '!' in slice1:
                 code_list.append('!')
-                code_list.append(slice1.strip(')').strip('!'))
+                code_list.append(slice1.strip(')').strip('!').strip(','))
             else:
-                code_list.append(slice1.strip(')'))
+                code_list.append(slice1.strip(')').strip(','))
 
-
-
-
-
-
+    code_list = handle_special(code_list)
 
     return code_list,flag
+
+def handle_special(code_list):
+    # special situation: ['.','*','&']
+    temp_code_list = code_list.copy()
+    for p in code_list:
+        p = p.strip()
+        if p != '' and '.' in p and len(p) > 1 and '0' not in p:
+            p_list = p.split('.')
+            for i in p_list:
+                temp_code_list.append(i.strip())
+        if p != '' and p[0] == '*' and len(p) > 1:
+            temp_code_list.append('*')
+            temp_code_list.append(p.strip('*').strip())
+        if p != '' and p[0] == '&' and len(p) > 1:
+            temp_code_list.append('&')
+            temp_code_list.append(p.strip('&').strip())
+        if '[' in p:
+            p_list = p.split('[')
+            temp_code_list.append(p_list[0].strip('&').strip('*').strip())
+    return temp_code_list
+
+
 
 # Step 1: Tokenize a sentence
 def word_extraction(sentence):
@@ -123,10 +215,10 @@ if __name__ == "__main__":
     code_list = []
     cnt = 0
     for line in f.readlines():
-        if flag <20:
+        if flag <1000:
             if line != '----------------------------------------------------------------------------------\n':
                 code_list,cnt = code2str(line,cnt)
-                print(code_list)
+                print('{} {}'.format(flag+1,code_list))
             flag +=1
     f.close()
 

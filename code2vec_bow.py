@@ -10,9 +10,11 @@ def code2str(line,flag):
     # return or goto
     if 'return' in line or 'goto' in line:
         line_list = line.split()
-        if len(line_list) < 3:
-            for i in line_list:
-                code_list.append(i.strip(';'))
+        # if len(line_list) < 3:
+        #     for i in line_list:
+        #         code_list.append(i.strip(';'))
+
+        # return code_list, flag
 
     # get rid of comment
     if '/*' in line or '*/' in line or '//' in line:
@@ -66,19 +68,27 @@ def code2str(line,flag):
                     else:
                         line_list3_cp.append(i.strip('\t\n; '))
 
-            elif '*' in sl:
+            elif '*' in sl and '-' not in sl and '+' not in sl:
                 code_list.append('*')
                 for i in sl.split('*'):
                     line_list3_cp.append(i.strip('\t\n; '))
 
-            elif '+' in sl:
+            elif '+' in sl :
                 code_list.append('+')
                 for i in sl.split('+'):
                     line_list3_cp.append(i.strip('\t\n; '))
+                    if '*' in i:
+                        code_list.append('*')
+                        for j in i.split('*'):
+                            line_list3_cp.append(j.strip('\t\n; '))
             elif '-' in sl:
                 code_list.append('-')
                 for i in sl.split('-'):
                     line_list3_cp.append(i.strip('\t\n; '))
+                    if '*' in i:
+                        code_list.append('*')
+                        for j in i.split('*'):
+                            line_list3_cp.append(j.strip('\t\n; '))
 
             elif '&' in sl:
                 code_list.append('&')
@@ -100,7 +110,10 @@ def code2str(line,flag):
                     elif i == ')':
                         right += 1
                 if left == right:
-                    code_list.append(slice2.strip('\t\n; ()'))
+                    code_list.append(slice2.strip(' \t\n;'))
+                    for i in slice2.split('('):
+                        if slice2.index(i) != 0:
+                            code_list.append(i.strip('\t\n; ()'))
                 if slice2[0] != '(':
                     code_piece = slice2.split('(')
                     if '?' in code_piece[0]:
@@ -114,13 +127,20 @@ def code2str(line,flag):
 
         return code_list,flag
 
+
     # operate value
-    if '++' in line:
+    if '++' in line and line[0] == '+':
         code_list.append('++')
         code_list.append(line.strip('\t').strip('\n').strip('++').strip(';'))
-    elif '--' in line:
+
+        code_list = handle_special(code_list)
+        return code_list, flag
+    elif '--' in line and line[0] == '-':
         code_list.append('--')
         code_list.append(line.strip('\t').strip('\n').strip('--').strip(';'))
+
+        code_list = handle_special(code_list)
+        return code_list, flag
 
     # get the element based on some rules
     for slice1 in line_list:
@@ -129,6 +149,19 @@ def code2str(line,flag):
                 code_list.append(slice1.strip(':').strip(';').strip(','))
             else:
                 code_list.append(':')
+        elif '(' in slice1 and ')' in slice1 and slice1[0] != '(':
+            left = 0
+            right = 0
+            for i in slice1:
+                if i == '(':
+                    left += 1
+                elif i == ')':
+                    right += 1
+            tmp = rreplace(slice1,')',' ',right - left)
+            code_list.append(tmp.strip(';}\t\n '))
+            line_list1 = slice1.split('(')
+            for i in line_list1:
+                code_list.append(i.strip(';}\t\n() '))
         elif '(' in slice1:
             line_list2 = slice1.split('(')
 
@@ -145,9 +178,9 @@ def code2str(line,flag):
         elif ')' in slice1:
             if '!' in slice1:
                 code_list.append('!')
-                code_list.append(slice1.strip(')').strip('!').strip(','))
+                code_list.append(slice1.strip(')!; '))
             else:
-                code_list.append(slice1.strip(')').strip(','))
+                code_list.append(slice1.strip('); '))
 
     code_list = handle_special(code_list)
 
@@ -158,20 +191,37 @@ def handle_special(code_list):
     temp_code_list = code_list.copy()
     for p in code_list:
         p = p.strip()
-        if p != '' and '.' in p and len(p) > 1 and '0' not in p:
+        if p != '' and '.' in p and len(p) > 1 and '0' not in p and '-' not in p and '(' not in p and ')' not in p:
             p_list = p.split('.')
             for i in p_list:
                 temp_code_list.append(i.strip())
         if p != '' and p[0] == '*' and len(p) > 1:
             temp_code_list.append('*')
             temp_code_list.append(p.strip('*').strip())
-        if p != '' and p[0] == '&' and len(p) > 1:
+        if p != '' and p[0] == '&' and p != '&&' and len(p) > 1:
             temp_code_list.append('&')
             temp_code_list.append(p.strip('&').strip())
         if '[' in p:
             p_list = p.split('[')
             temp_code_list.append(p_list[0].strip('&').strip('*').strip())
+        if '->' in p:
+            p_list = p.split('->')
+            temp_code_list.append('->')
+            for i in p_list:
+                temp_code_list.append(i.strip(' '))
     return temp_code_list
+
+def rreplace(self, old, new, *max):
+    count = len(self)
+    if max and str(max[0]).isdigit():
+        count = max[0]
+    while count:
+        index = self.rfind(old)
+        if index >= 0:
+            chunk = self.rpartition(old)
+            self = chunk[0] + new + chunk[2]
+        count -= 1
+    return self
 
 
 

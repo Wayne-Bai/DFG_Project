@@ -129,7 +129,7 @@ def code2str(line,flag):
 
 
     # operate value
-    if '++' in line and line[0] == '+':
+    if '++' in line and line.strip('\t\n ')[0] == '+':
         code_list.append('++')
         code_list.append(line.strip('\t').strip('\n').strip('++').strip(';'))
 
@@ -149,7 +149,7 @@ def code2str(line,flag):
                 code_list.append(slice1.strip(':').strip(';').strip(','))
             else:
                 code_list.append(':')
-        elif '(' in slice1 and ')' in slice1 and slice1[0] != '(':
+        elif '(' in slice1 and ')' in slice1 and slice1[0] != '(' and slice1.split('(')[0] not in error_list:
             left = 0
             right = 0
             for i in slice1:
@@ -209,6 +209,10 @@ def handle_special(code_list):
             temp_code_list.append('->')
             for i in p_list:
                 temp_code_list.append(i.strip(' '))
+        if ',' in p and '(' not in p:
+            p_list = p.split(',')
+            for i in p_list:
+                temp_code_list.append(i.strip(' '))
     return temp_code_list
 
 def rreplace(self, old, new, *max):
@@ -223,6 +227,14 @@ def rreplace(self, old, new, *max):
         count -= 1
     return self
 
+
+
+
+def getCodeList(list1,list2):
+    for i in list2:
+        if i != '' and i != ';' and i not in list1:
+            list1.append(i)
+    return list1
 
 
 # Step 1: Tokenize a sentence
@@ -263,12 +275,52 @@ if __name__ == "__main__":
     f = open('conStatement_code.txt', 'r')
     flag = 0
     code_list = []
+    whole_code_list = []
+    whole_code_dict = {}
     cnt = 0
+
     for line in f.readlines():
         if flag <1000:
             if line != '----------------------------------------------------------------------------------\n':
                 code_list,cnt = code2str(line,cnt)
-                print('{} {}'.format(flag+1,code_list))
+                # print('{} {}'.format(flag+1,code_list))
+
+                whole_code_list = getCodeList(whole_code_list,code_list)
             flag +=1
+    print(len(whole_code_list))
+    print(whole_code_list)
+    f.close()
+
+    for i in whole_code_list:
+        whole_code_dict[i] = 0
+
+    temp_dict = whole_code_dict.copy()
+    # print(whole_code_dict)
+
+    w = open('code2vec','a')
+    flag1 = 0
+    flag2 = 0
+    f = open('conStatement_code.txt', 'r')
+    for line in f.readlines():
+        if flag1 < 1000:
+            if line != '----------------------------------------------------------------------------------\n':
+                code_list, cnt = code2str(line, cnt)
+                for i in code_list:
+                    if i in whole_code_dict.keys():
+                        whole_code_dict[i] += 1
+                flag2 += 1
+            else:
+                print('{} - {}: {}'.format(flag1-flag2, flag1, whole_code_dict))
+                for i in whole_code_list:
+                    whole_code_dict[i] = 0
+                flag2 = 0
+
+            flag1 += 1
+
+
+
+    # print(len(whole_code_list))
+    # print(whole_code_list)
+    w.close()
     f.close()
 

@@ -1,5 +1,7 @@
 import numpy as np
 import re
+import pandas as pd
+import csv
 
 def code2str(line,flag):
     code_list = []
@@ -297,12 +299,23 @@ if __name__ == "__main__":
     temp_dict = whole_code_dict.copy()
     # print(whole_code_dict)
 
-    w = open('code2vec','a')
+    key_list = []
+    for i in whole_code_dict.keys():
+        key_list.append(i)
+    # with open("test.csv", "w") as csvfile:
+    #     writer = csv.writer(csvfile)
+    #
+    #     writer.writerow(key_list)
+
     flag1 = 0
     flag2 = 0
+
+    csv_list = [key_list]
+    line_list = []
+
     f = open('conStatement_code.txt', 'r')
     for line in f.readlines():
-        if flag1 < 1000:
+        if flag1 < 100000:
             if line != '----------------------------------------------------------------------------------\n':
                 code_list, cnt = code2str(line, cnt)
                 for i in code_list:
@@ -311,16 +324,36 @@ if __name__ == "__main__":
                 flag2 += 1
             else:
                 print('{} - {}: {}'.format(flag1-flag2, flag1, whole_code_dict))
+                value_list = []
+                for i in whole_code_dict.keys():
+                    value_list.append(whole_code_dict[i])
+
+                line_list.append('{} - {}'.format(flag1-flag2+1, flag1-1))
+
+                csv_list.append(value_list)
+                # with open("test.csv", "w") as csvfile:
+                #     writer = csv.writer(csvfile)
+                #     writer.writerow(value_list)
+
                 for i in whole_code_list:
                     whole_code_dict[i] = 0
                 flag2 = 0
 
             flag1 += 1
 
+    with open("code2vec.csv", "w") as csvfile:
+        writer = csv.writer(csvfile)
 
+        writer.writerows(csv_list)
+
+    with open("vec2line", "w") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['line number'])
+        for i in line_list:
+            writer.writerow([i])
 
     # print(len(whole_code_list))
     # print(whole_code_list)
-    w.close()
+    # w.close()
     f.close()
 

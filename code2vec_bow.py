@@ -326,7 +326,7 @@ if __name__ == "__main__":
                 print('{} - {}: {}'.format(flag1-flag2, flag1, whole_code_dict))
                 value_list = []
                 for i in whole_code_dict.keys():
-                    value_list.append(whole_code_dict[i])
+                    value_list.append(int(whole_code_dict[i]))
 
                 line_list.append('{} - {}'.format(flag1-flag2+1, flag1-1))
 

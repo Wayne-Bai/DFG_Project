@@ -24,11 +24,9 @@
 2	jasper-2.0.10/src/appl/jiv.c	582
 2	jasper-2.0.10/src/appl/jiv.c	593
 2	jasper-2.0.10/src/appl/jiv.c	594
-2	jasper-2.0.10/src/appl/jiv.c	598
 2	jasper-2.0.10/src/appl/jiv.c	604
 2	jasper-2.0.10/src/appl/jiv.c	611
 2	jasper-2.0.10/src/appl/jiv.c	612
-2	jasper-2.0.10/src/appl/jiv.c	616
 2	jasper-2.0.10/src/appl/jiv.c	622
 2	jasper-2.0.10/src/appl/jiv.c	629
 2	jasper-2.0.10/src/appl/jiv.c	637
@@ -66,10 +64,8 @@
 2	jasper-2.0.10/src/appl/jiv.c	903
 2	jasper-2.0.10/src/appl/jiv.c	912
 2	jasper-2.0.10/src/appl/jiv.c	916
-2	jasper-2.0.10/src/appl/jiv.c	918
 2	jasper-2.0.10/src/appl/jiv.c	948
 2	jasper-2.0.10/src/appl/jiv.c	959
-2	jasper-2.0.10/src/appl/jiv.c	961
 2	jasper-2.0.10/src/appl/jiv.c	983
 2	jasper-2.0.10/src/appl/jiv.c	988
 2	jasper-2.0.10/src/appl/jiv.c	989
@@ -78,7 +74,6 @@
 2	jasper-2.0.10/src/appl/jiv.c	1045
 2	jasper-2.0.10/src/appl/jiv.c	1052
 2	jasper-2.0.10/src/appl/jiv.c	1075
-2	jasper-2.0.10/src/appl/jiv.c	1077
 
 3	jasper-2.0.10/src/appl/imgcmp.c	198
 3	jasper-2.0.10/src/appl/imgcmp.c	206
@@ -108,16 +103,13 @@
 3	jasper-2.0.10/src/appl/imgcmp.c	365
 3	jasper-2.0.10/src/appl/imgcmp.c	376
 3	jasper-2.0.10/src/appl/imgcmp.c	377
-3	jasper-2.0.10/src/appl/imgcmp.c	379
 3	jasper-2.0.10/src/appl/imgcmp.c	385
 3	jasper-2.0.10/src/appl/imgcmp.c	407
 3	jasper-2.0.10/src/appl/imgcmp.c	444
 3	jasper-2.0.10/src/appl/imgcmp.c	466
-3	jasper-2.0.10/src/appl/imgcmp.c	468
 3	jasper-2.0.10/src/appl/imgcmp.c	523
 3	jasper-2.0.10/src/appl/imgcmp.c	529
 3	jasper-2.0.10/src/appl/imgcmp.c	539
-3	jasper-2.0.10/src/appl/imgcmp.c	543
 3	jasper-2.0.10/src/appl/imgcmp.c	556
 3	jasper-2.0.10/src/appl/imgcmp.c	565
 
@@ -181,7 +173,6 @@
 7	jasper-2.0.10/src/libjasper/ras/ras_enc.c	165
 7	jasper-2.0.10/src/libjasper/ras/ras_enc.c	169
 7	jasper-2.0.10/src/libjasper/ras/ras_enc.c	171
-7	jasper-2.0.10/src/libjasper/ras/ras_enc.c	176
 7	jasper-2.0.10/src/libjasper/ras/ras_enc.c	194
 7	jasper-2.0.10/src/libjasper/ras/ras_enc.c	198
 7	jasper-2.0.10/src/libjasper/ras/ras_enc.c	209
@@ -312,12 +303,10 @@
 14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	324
 14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	331
 14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	335
-14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	341
 14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	343
 14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	352
 14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	362
 14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	376
-14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	388
 14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	392
 14	jasper-2.0.10/src/libjasper/bmp/bmp_enc.c	395
 
@@ -325,7 +314,6 @@
 15	jasper-2.0.10/src/libjasper/bmp/bmp_cod.c	98
 15	jasper-2.0.10/src/libjasper/bmp/bmp_cod.c	114
 15	jasper-2.0.10/src/libjasper/bmp/bmp_cod.c	125
-15	jasper-2.0.10/src/libjasper/bmp/bmp_cod.c	127
 
 16	jasper-2.0.10/src/libjasper/bmp/bmp_dec.c	123
 16	jasper-2.0.10/src/libjasper/bmp/bmp_dec.c	128
@@ -429,11 +417,9 @@
 19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	405
 19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	411
 19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	415
-19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	417
 19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	426
 19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	440
 19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	446
-19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	448
 19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	452
 19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	461
 19	jasper-2.0.10/src/libjasper/pgx/pgx_dec.c	465
@@ -464,7 +450,6 @@
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	224
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	231
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	237
-20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	242
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	246
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	254
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	260
@@ -477,14 +462,12 @@
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	300
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	314
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	321
-20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	332
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	333
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	336
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	342
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	351
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	357
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	367
-20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	369
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	381
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	383
 20	jasper-2.0.10/src/libjasper/jp2/jp2_dec.c	402
@@ -664,14 +647,11 @@
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	308
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	314
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	321
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	348
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	357
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	360
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	366
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	387
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	395
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	398
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	400
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	405
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	408
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	411
@@ -679,22 +659,17 @@
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	429
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	455
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	463
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	466
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	468
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	473
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	476
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	479
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	501
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	510
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	523
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	529
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	535
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	556
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	566
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	575
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	581
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	609
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	622
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	652
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	675
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	683
@@ -708,15 +683,12 @@
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	792
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	797
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	809
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	811
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	812
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	841
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	842
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	845
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	846
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	854
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	869
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	871
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	877
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	895
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	897
@@ -733,8 +705,6 @@
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	1023
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	1039
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	1073
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	1075
-23	jasper-2.0.10/src/libjasper/base/jas_stream.c	1076
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	1080
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	1111
 23	jasper-2.0.10/src/libjasper/base/jas_stream.c	1114
@@ -788,7 +758,6 @@
 
 27	jasper-2.0.10/src/libjasper/base/jas_malloc.c	134
 27	jasper-2.0.10/src/libjasper/base/jas_malloc.c	138
-27	jasper-2.0.10/src/libjasper/base/jas_malloc.c	142
 27	jasper-2.0.10/src/libjasper/base/jas_malloc.c	148
 27	jasper-2.0.10/src/libjasper/base/jas_malloc.c	171
 27	jasper-2.0.10/src/libjasper/base/jas_malloc.c	174
@@ -852,7 +821,6 @@
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	438
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	440
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	444
-32	jasper-2.0.10/src/libjasper/base/jas_image.c	447
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	448
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	450
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	457
@@ -908,7 +876,6 @@
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	979
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	982
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	990
-32	jasper-2.0.10/src/libjasper/base/jas_image.c	992
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1011
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1017
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1035
@@ -926,8 +893,6 @@
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1209
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1212
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1218
-32	jasper-2.0.10/src/libjasper/base/jas_image.c	1221
-32	jasper-2.0.10/src/libjasper/base/jas_image.c	1224
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1233
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1236
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1239
@@ -946,7 +911,6 @@
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1387
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1389
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1390
-32	jasper-2.0.10/src/libjasper/base/jas_image.c	1392
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1449
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1453
 32	jasper-2.0.10/src/libjasper/base/jas_image.c	1459
@@ -988,7 +952,6 @@
 33	jasper-2.0.10/src/libjasper/base/jas_seq.c	294
 33	jasper-2.0.10/src/libjasper/base/jas_seq.c	318
 33	jasper-2.0.10/src/libjasper/base/jas_seq.c	327
-33	jasper-2.0.10/src/libjasper/base/jas_seq.c	329
 33	jasper-2.0.10/src/libjasper/base/jas_seq.c	346
 33	jasper-2.0.10/src/libjasper/base/jas_seq.c	368
 33	jasper-2.0.10/src/libjasper/base/jas_seq.c	393
@@ -1018,7 +981,6 @@
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	301
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	313
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	314
-34	jasper-2.0.10/src/libjasper/base/jas_icc.c	317
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	323
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	326
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	330
@@ -1056,7 +1018,6 @@
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	573
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	574
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	607
-34	jasper-2.0.10/src/libjasper/base/jas_icc.c	609
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	620
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	629
 34	jasper-2.0.10/src/libjasper/base/jas_icc.c	642
@@ -1197,7 +1158,6 @@
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	265
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	266
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	268
-35	jasper-2.0.10/src/libjasper/base/jas_cm.c	270
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	271
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	273
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	280
@@ -1271,7 +1231,6 @@
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	886
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	897
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	899
-35	jasper-2.0.10/src/libjasper/base/jas_cm.c	903
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	905
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	913
 35	jasper-2.0.10/src/libjasper/base/jas_cm.c	931
@@ -1328,7 +1287,6 @@
 37	jasper-2.0.10/src/libjasper/pnm/pnm_enc.c	191
 37	jasper-2.0.10/src/libjasper/pnm/pnm_enc.c	204
 37	jasper-2.0.10/src/libjasper/pnm/pnm_enc.c	210
-37	jasper-2.0.10/src/libjasper/pnm/pnm_enc.c	212
 37	jasper-2.0.10/src/libjasper/pnm/pnm_enc.c	223
 37	jasper-2.0.10/src/libjasper/pnm/pnm_enc.c	228
 37	jasper-2.0.10/src/libjasper/pnm/pnm_enc.c	233
@@ -1404,7 +1362,6 @@
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	530
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	532
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	535
-39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	539
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	544
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	557
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	566
@@ -1413,7 +1370,6 @@
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	590
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	597
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	599
-39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	602
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	603
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	610
 39	jasper-2.0.10/src/libjasper/pnm/pnm_dec.c	616
@@ -1431,10 +1387,8 @@
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	219
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	239
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	244
-41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	253
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	257
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	259
-41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	268
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	270
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	274
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	281
@@ -1443,7 +1397,6 @@
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	305
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	314
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	328
-41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	332
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	333
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	336
 41	jasper-2.0.10/src/libjasper/jpc/jpc_cs.c	339
@@ -1606,11 +1559,6 @@
 42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	99
 42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	103
 42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	113
-42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	115
-42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	117
-42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	119
-42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	121
-42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	123
 42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	146
 42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	148
 42	jasper-2.0.10/src/libjasper/jpc/jpc_t2enc.c	152
@@ -1696,17 +1644,13 @@
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	262
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	280
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	285
-44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	289
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	294
-44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	306
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	309
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	313
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	317
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	318
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	336
-44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	338
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	359
-44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	361
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	366
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	367
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	373
@@ -1715,7 +1659,6 @@
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	386
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	409
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	410
-44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	417
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	427
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	428
 44	jasper-2.0.10/src/libjasper/jpc/jpc_bs.c	432
@@ -1723,7 +1666,6 @@
 
 45	jasper-2.0.10/src/libjasper/jpc/jpc_t2cod.c	92
 45	jasper-2.0.10/src/libjasper/jpc/jpc_t2cod.c	99
-45	jasper-2.0.10/src/libjasper/jpc/jpc_t2cod.c	101
 45	jasper-2.0.10/src/libjasper/jpc/jpc_t2cod.c	109
 45	jasper-2.0.10/src/libjasper/jpc/jpc_t2cod.c	129
 45	jasper-2.0.10/src/libjasper/jpc/jpc_t2cod.c	144
@@ -1800,11 +1742,6 @@
 49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	135
 49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	136
 49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	137
-49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	140
-49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	143
-49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	146
-49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	149
-49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	206
 49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	207
 49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	208
 49	jasper-2.0.10/src/libjasper/jpc/jpc_t2dec.c	209
@@ -1921,7 +1858,6 @@
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	774
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	787
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	791
-50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	793
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	812
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	824
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	834
@@ -1953,7 +1889,6 @@
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1155
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1165
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1172
-50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1199
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1204
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1210
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1219
@@ -2016,7 +1951,6 @@
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1811
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1815
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1827
-50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1830
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1833
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1841
 50	jasper-2.0.10/src/libjasper/jpc/jpc_enc.c	1851
@@ -2104,7 +2038,6 @@
 51	jasper-2.0.10/src/libjasper/jpc/jpc_t1dec.c	305
 51	jasper-2.0.10/src/libjasper/jpc/jpc_t1dec.c	309
 51	jasper-2.0.10/src/libjasper/jpc/jpc_t1dec.c	316
-51	jasper-2.0.10/src/libjasper/jpc/jpc_t1dec.c	319
 51	jasper-2.0.10/src/libjasper/jpc/jpc_t1dec.c	347
 51	jasper-2.0.10/src/libjasper/jpc/jpc_t1dec.c	350
 51	jasper-2.0.10/src/libjasper/jpc/jpc_t1dec.c	414
@@ -2144,7 +2077,6 @@
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	171
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	173
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	187
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	189
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	190
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	194
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	222
@@ -2153,27 +2085,17 @@
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	317
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	318
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	319
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	321
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	326
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	331
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	332
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	333
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	347
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	348
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	350
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	355
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	356
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	358
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	363
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	364
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	388
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	412
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	416
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	417
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	419
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	424
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	425
-52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	427
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	441
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	459
 52	jasper-2.0.10/src/libjasper/jpc/jpc_t1cod.c	489
@@ -2445,8 +2367,6 @@
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	417
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	424
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	434
-58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	436
-58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	456
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	485
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	487
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	503
@@ -2475,7 +2395,6 @@
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	635
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	639
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	645
-58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	650
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	657
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	658
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	722
@@ -2523,8 +2442,6 @@
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	1096
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	1101
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	1106
-58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	1115
-58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	1123
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	1124
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	1126
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	1130
@@ -2617,7 +2534,6 @@
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	2126
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	2178
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	2183
-58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	2200
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	2201
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	2203
 58	jasper-2.0.10/src/libjasper/jpc/jpc_dec.c	2213

@@ -346,8 +346,8 @@ if __name__ == "__main__":
 
         writer.writerows(csv_list)
 
-    with open("vec2line", "w") as csvfile:
-        writer = csv.writer(csvfile)
+    with open("vec2line.csv", "w") as csvfile1:
+        writer = csv.writer(csvfile1)
         writer.writerow(['line number'])
         for i in line_list:
             writer.writerow([i])

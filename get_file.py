@@ -158,7 +158,7 @@ def get_conStatement_code(dir):
                                 right += 1
 
                         diff += left - right
-                        if '{' not in line_list and diff == 0:
+                        if '{' not in line_list and diff == 0 and left - right == -1:
                             error = 1
                     # elif condition == 'if' and 'goto' in line_list and error == 1:
                     #     w.write('\n')

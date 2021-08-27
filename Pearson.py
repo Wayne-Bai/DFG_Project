@@ -12,18 +12,27 @@ vec_list = []
 with open("code2vec.csv","r") as csvfile:
     reader = csv.reader(csvfile)
     #这里不需要readlines
-    flag = 0
+    # flag = 0
+    # for line in reader:
+    #     line_new = []
+    #     if flag < 100000 and flag > 0:
+    #         for i in line:
+    #             line_new.append(int(i))
+    #         vec_list.append(line_new)
+    #         print(line_new)
+    #     flag += 1
     for line in reader:
-        line_new = []
-        if flag < 100 and flag > 0:
+        if 'switch' not in line:
+            line_new = []
             for i in line:
                 line_new.append(int(i))
             vec_list.append(line_new)
-            print(line_new)
-        flag += 1
-
+        # print(line_new)
+print(len(vec_list))
 final_list = []
-
+csvfile = open("valuedic.csv", "w")
+writer = csv.writer(csvfile)
+writer.writerow(['line number'])
 for i in range(len(vec_list)):
     if i+1 < len(vec_list):
         for j in range(i+1,len(vec_list)):
@@ -35,6 +44,5 @@ for i in range(len(vec_list)):
             p = pearsonr(x1, x2)
             value_dic['co'] = p[0]
             value_dic['p-value'] = p[1]
-            final_list.append(value_dic)
-
-print(final_list)
+            for key,value in value_dic.items():
+                writer.writerow([key,value])
